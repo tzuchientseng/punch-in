@@ -6,7 +6,7 @@ const RecordPage = () => {
         <PageContainer>
         <Title>-- This page is under construction --</Title>
             <AirtableButton 
-                href="https://airtable.com/appkwZaIniGSDuEK5/tblf7maIWYlP22ZW8/viwPPJaZto5cokGjZ?blocks=hide" 
+                href="https://airtable.com/appkwZaIniGSDuEK5/tblf7maIWYlP22ZW8/viwAlxZpzuURv0iiz?blocks=hide" 
                 target="_blank" 
                 rel="noopener noreferrer"
             >
