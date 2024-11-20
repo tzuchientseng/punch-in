@@ -38,94 +38,100 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-// Airtable API 設置
-const token = 'patH4dk6hLPOkA5Qt.2e5d3671ca01ce59aa429a38a038cb4290a2fab8666889c8ae5045f64e8f3b7f';
-const baseId = "appkwZaIniGSDuEK5";
-const tableName = "WorkHoursTracking";
-const apiUrl = `https://api.airtable.com/v0/${baseId}/${tableName}`;
+
+
+const apiUrl = "https://home.sunnytseng.com/api/work-hours";
+const apiKey = "c82c7b5f3a10bc44a58bdfdbb62c7cf7acb29f4f";
+
+// 全局驗證標頭
 const authHeader = {
-  Authorization: `Bearer ${token}`,
+  "X-API-KEY": apiKey,
   "Content-Type": "application/json",
 };
 
-// 取得當前的 ISO 日期時間
-const getCurrentTimestamp = () => new Date().toISOString();
-
-// 創建一筆新紀錄並打卡
-export const handleClockIn = async (userName) => {
+// 發送打卡（Clock-In）請求
+export const handleClockIn = async () => {
   try {
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`${apiUrl}/clock-in/`, {
       method: "POST",
       headers: authHeader,
-      body: JSON.stringify({
-        fields: {
-          Name: userName,
-          "Clock-In": getCurrentTimestamp(),
-        },
-      }),
     });
+    if (!response.ok) {
+      const errorMessage = `Clock-In failed: ${response.status} ${response.statusText}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    }
     const data = await response.json();
-    console.log("Clock In response:", data);
-    // return data.records[0].id; // 返回記錄 ID，用於後續的更新
-    return data.id; 
+    console.log("Clock-In response:", data);
+    return data.id; // 返回記錄 ID
   } catch (error) {
-    console.error("Clock In error:", error);
+    console.error("Clock-In error:", error);
+    throw error; // 傳遞錯誤
   }
 };
 
-// 更新開始休息時間
+// 更新開始休息時間（Start-Break）
 export const handleStartBreak = async (recordId) => {
   try {
-    const response = await fetch(`${apiUrl}/${recordId}`, {
+    const response = await fetch(`${apiUrl}/${recordId}/`, {
       method: "PATCH",
       headers: authHeader,
-      body: JSON.stringify({
-        fields: {
-          "Start-Break": getCurrentTimestamp(),
-        },
-      }),
+      body: JSON.stringify({ field: "start_break" }),
     });
+    if (!response.ok) {
+      const errorMessage = `Start-Break update failed: ${response.status} ${response.statusText}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    }
     const data = await response.json();
-    console.log("Start Break response:", data);
+    console.log("Start-Break response:", data);
+    return data;
   } catch (error) {
-    console.error("Start Break error:", error);
+    console.error("Start-Break error:", error);
+    throw error;
   }
 };
 
-// 更新結束休息時間
+// 更新結束休息時間（End-Break）
 export const handleEndBreak = async (recordId) => {
   try {
-    const response = await fetch(`${apiUrl}/${recordId}`, {
+    const response = await fetch(`${apiUrl}/${recordId}/`, {
       method: "PATCH",
       headers: authHeader,
-      body: JSON.stringify({
-        fields: {
-          "End-Break": getCurrentTimestamp(),
-        },
-      }),
+      body: JSON.stringify({ field: "end_break" }),
     });
+    if (!response.ok) {
+      const errorMessage = `End-Break update failed: ${response.status} ${response.statusText}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    }
     const data = await response.json();
-    console.log("End Break response:", data);
+    console.log("End-Break response:", data);
+    return data;
   } catch (error) {
-    console.error("End Break error:", error);
+    console.error("End-Break error:", error);
+    throw error;
   }
 };
 
-// 更新下班打卡時間
+// 更新下班打卡時間（Clock-Out）
 export const handleClockOut = async (recordId) => {
   try {
-    const response = await fetch(`${apiUrl}/${recordId}`, {
+    const response = await fetch(`${apiUrl}/${recordId}/`, {
       method: "PATCH",
       headers: authHeader,
-      body: JSON.stringify({
-        fields: {
-          "Clock-Out": getCurrentTimestamp(),
-        },
-      }),
+      body: JSON.stringify({ field: "clock_out" }),
     });
+    if (!response.ok) {
+      const errorMessage = `Clock-Out update failed: ${response.status} ${response.statusText}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    }
     const data = await response.json();
-    console.log("Clock Out response:", data);
+    console.log("Clock-Out response:", data);
+    return data;
   } catch (error) {
-    console.error("Clock Out error:", error);
+    console.error("Clock-Out error:", error);
+    throw error;
   }
 };
