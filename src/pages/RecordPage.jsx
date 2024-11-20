@@ -6,11 +6,11 @@ const RecordPage = () => {
         <PageContainer>
         <Title>-- This page is under construction --</Title>
             <AirtableButton 
-                href="https://airtable.com/appkwZaIniGSDuEK5/tblf7maIWYlP22ZW8/viwAlxZpzuURv0iiz?blocks=hide" 
+                href="https://home.sunnytseng.com/clock" 
                 target="_blank" 
                 rel="noopener noreferrer"
             >
-                Go to Airtable
+               Link 
             </AirtableButton>
         </PageContainer>
     );
