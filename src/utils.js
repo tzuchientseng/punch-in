@@ -4,6 +4,10 @@ export const handleLogin = (setShowAlert) => {
   setShowAlert(true);
 };
 
+export const handleLogout = (setShowLogoutConfirm) => {
+  setShowLogoutConfirm(true);
+};
+
 export const handleAlertSubmit = (password, setIsAuthenticated, setShowAlert, setShowFailModal) => {
   if (password === "open") {
     setIsAuthenticated(true);
