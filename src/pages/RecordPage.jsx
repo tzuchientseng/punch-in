@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { fetchAllWorkHours } from "../utils";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -83,7 +83,7 @@ const RecordPage = () => {
     };
 
     if (loading) {
-        return <LoadingMessage>Loading work hours...</LoadingMessage>;
+        return <BouncingText>Loading...</BouncingText>
     }
 
     return (
@@ -223,17 +223,6 @@ const Table = styled.table`
     }
 `;
 
-const LoadingMessage = styled.div`
-    text-align: center;
-    padding: 7px;
-    font-size: 1.2rem;
-    color: #555;
-
-    @media (max-width: 768px) {
-        font-size: 1rem;
-    }
-`
-
 const PaginationControls = styled.div`
     // display: flex;
     justify-content: center;
@@ -259,4 +248,20 @@ const PaginationButton = styled.button`
     &:focus {
         outline: none;
     }
+`;
+
+// 定義跳動動畫
+const bounce = keyframes`
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+`;
+
+// 使用 Styled Component 定義帶有 bounce 動畫的文字
+const BouncingText = styled.p`
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 20%;
+    color: #333;
+    animation: ${bounce} 1.4s infinite;
 `;
