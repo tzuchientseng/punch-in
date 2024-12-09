@@ -154,7 +154,7 @@ const PageContainer = styled.div`
 
 const AirtableButton = styled.a`
     padding: 0.75rem 1.5rem;
-    margin-top: 70px;
+    margin: 20px;
     font-size: 1rem;
     color: white;
     background-color: #3a7ca5;
@@ -182,7 +182,7 @@ const TableContainer = styled.div`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 70%;
     padding: 20px; /* Add padding around the table */
-    margin: 20px auto; /* Center align and add margin */
+    // margin: 20px auto; /* Center align and add margin */
 
     @media (max-width: 768px) {
         padding: 15px; /* Reduce padding slightly for smaller screens */
@@ -217,8 +217,8 @@ const Table = styled.table`
     @media (max-width: 768px) {
         th,
         td {
-            font-size: 0.9rem; /* Slightly smaller font for small screens */
-            padding: 12px;
+            font-size: 0.7rem; /* Slightly smaller font for small screens */
+            padding: 7px;
         }
     }
 `;
@@ -238,7 +238,6 @@ const PaginationControls = styled.div`
     // display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
     font-size: 1.2rem;
 
     span {
