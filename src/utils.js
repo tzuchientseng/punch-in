@@ -4,6 +4,10 @@ export const handleLogin = (setShowAlert) => {
   setShowAlert(true);
 };
 
+export const handleLogout = (setShowLogoutConfirm) => {
+  setShowLogoutConfirm(true);
+};
+
 export const handleAlertSubmit = (password, setIsAuthenticated, setShowAlert, setShowFailModal) => {
   if (password === "open") {
     setIsAuthenticated(true);
@@ -133,5 +137,27 @@ export const handleClockOut = async (recordId) => {
   } catch (error) {
     console.error("Clock-Out error:", error);
     throw error;
+  }
+};
+
+// punch-in
+export const fetchAllWorkHours = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/fetch/`, {
+        method: 'GET',
+        headers: authHeader,
+    });
+      const result = await response.json();
+
+      if (response.ok && Array.isArray(result)) {
+          // console.log('Fetched all work hours:', result);
+          return { success: true, data: result };
+      } else {
+          console.error('Unexpected response format:', result);
+          return { success: false, error: 'Unexpected response format' };
+      }
+  } catch (error) {
+      console.error('Error fetching all work hours:', error);
+      return { success: false, error: 'Error fetching all work hours' };
   }
 };

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import LoginModal from '../components/Auth/LoginModal.jsx';
 import LogoutModal from '../components/Auth/LogoutModal.jsx';
 import FailModal from '../components/Auth/FailModal.jsx'; // Import FailModal
-import { handleLogin, handleAlertSubmit } from '../utils.js';
+import { handleLogin, handleLogout, handleAlertSubmit } from '../utils.js';
 import RecordPage from './RecordPage.jsx';
 import AttendanceButtons from '../components/AttendanceButtons.jsx';
 
@@ -18,9 +18,6 @@ const Homepage = () => {
 
   const location = useLocation();
 
-  const handleLogout = () => {
-    setShowLogoutConfirm(true);
-  };
 
   return (
     <>
@@ -38,7 +35,7 @@ const Homepage = () => {
         <StyledAuthButton
           $isAuthenticated={isAuthenticated}
           onClick={() =>
-            isAuthenticated ? handleLogout() : handleLogin(setShowAlert)
+            isAuthenticated ? handleLogout(setShowLogoutConfirm) : handleLogin(setShowAlert)
           }
         >
           {isAuthenticated ? 'Logout' : 'Login'}
